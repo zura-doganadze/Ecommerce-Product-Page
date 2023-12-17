@@ -6,7 +6,16 @@ import Minus from "../assets/minus.png";
 import Plus from "../assets/plus.svg";
 import hape from "../assets/Shape.svg";
 
-function Collection() {
+interface CollectionProps {
+  decrement: () => void;
+  increment: () => void;
+  count: number;
+}
+const Collection: React.FC<CollectionProps> = ({
+  count,
+  decrement,
+  increment,
+}) => {
   const [selectImg, setSelectImg] = useState<number | undefined>(1);
 
   return (
@@ -14,7 +23,10 @@ function Collection() {
       <ContentWrapper>
         <ImgsWrapper>
           <MainIMg>
-            <img src={data.find((item) => item.id === selectImg)?.img} alt="" />
+            <img
+              src={data.find((item) => item.id === selectImg)?.img}
+              alt="img"
+            />
           </MainIMg>
           <SelectImgContainer>
             {data.map((item) => {
@@ -23,7 +35,7 @@ function Collection() {
                   src={item.img}
                   key={item.id}
                   onClick={() => setSelectImg(item.id)}
-                  alt=""
+                  alt="img"
                 />
               );
             })}
@@ -45,11 +57,11 @@ function Collection() {
           <CounterWrapper>
             <CounterContainer>
               <button>
-                <img src={Minus} alt="minus img" />
+                <img onClick={decrement} src={Minus} alt="minus img" />
               </button>
-              <span>0</span>
+              <span>{count}</span>
               <button>
-                <img src={Plus} alt="plus img" />
+                <img onClick={increment} src={Plus} alt="plus img" />
               </button>
             </CounterContainer>
             <AddButton>
@@ -62,7 +74,7 @@ function Collection() {
       </ContentWrapper>
     </Wrapper>
   );
-}
+};
 export default Collection;
 
 const Wrapper = styled.div`

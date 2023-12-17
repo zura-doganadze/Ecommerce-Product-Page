@@ -3,8 +3,10 @@ import styled from "styled-components";
 import Bascket from "../assets/basket img.svg";
 import Person from "../assets/personal img.png";
 import Logo from "../assets/sneakers logo.svg";
-
-function Header() {
+interface HeaderProps {
+  count: number;
+}
+const Header: React.FC<HeaderProps> = ({ count }) => {
   const data: string[] = ["Collections", "Men", "Women", "About", "Contact"];
 
   return (
@@ -20,13 +22,13 @@ function Header() {
       <IconsContainer>
         <BascketContainer>
           <img src={Bascket} alt="basket" />
-          <span>1</span>
+          <span>{count}</span>
         </BascketContainer>
         <img src={Person} alt="person img" />
       </IconsContainer>
     </Wrapper>
   );
-}
+};
 
 export default Header;
 

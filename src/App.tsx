@@ -2,12 +2,24 @@ import Collection from "./Components/Collection.tsx";
 import Header from "./Components/Header.tsx";
 import styled from "styled-components";
 
+import { useState } from "react";
 function App() {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
+  };
   return (
     <Wrapper>
       <Container>
-        <Header />
-        <Collection />
+        <Header count={count} />
+        <Collection increment={increment} decrement={decrement} count={count} />
       </Container>
     </Wrapper>
   );
