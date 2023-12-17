@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 import Bascket from "../assets/basket img.svg";
 import Person from "../assets/personal img.png";
@@ -46,6 +45,9 @@ const NavContainer = styled.div`
     margin-left: 55px;
     display: flex;
     column-gap: 32px;
+  }
+  span {
+    cursor: pointer;
   }
 `;
 const IconsContainer = styled.div`
