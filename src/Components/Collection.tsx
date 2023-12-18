@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import data from "../data.json";
+// import data from "../data.json";
 import { useState } from "react";
 
 import Minus from "../assets/minus.png";
 import Plus from "../assets/plus.svg";
 import hape from "../assets/Shape.svg";
+import ImgCard from "./ImgCard";
+import Popup from "./Popup";
 
 interface CollectionProps {
   decrement: () => void;
@@ -16,31 +18,25 @@ const Collection: React.FC<CollectionProps> = ({
   decrement,
   increment,
 }) => {
-  const [selectImg, setSelectImg] = useState<number | undefined>(1);
 
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+    console.log("o[en")
+  };
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    console.log("close")
+
+  };
   return (
     <Wrapper>
       <ContentWrapper>
-        <ImgsWrapper>
-          <MainIMg>
-            <img
-              src={data.find((item) => item.id === selectImg)?.img}
-              alt="img"
-            />
-          </MainIMg>
-          <SelectImgContainer>
-            {data.map((item) => {
-              return (
-                <img
-                  src={item.img}
-                  key={item.id}
-                  onClick={() => setSelectImg(item.id)}
-                  alt="img"
-                />
-              );
-            })}
-          </SelectImgContainer>
-        </ImgsWrapper>
+        <ImgCard openPopup={openPopup}/>
+        {isPopupOpen && <Popup closePopup={closePopup}/>}
+        
+       
         <TextWrapper>
           <ProdactName>Sneaker Company</ProdactName>
           <h1>Fall Limited Edition Sneakers</h1>
@@ -50,8 +46,10 @@ const Collection: React.FC<CollectionProps> = ({
             the weather can offer.
           </p>
           <PriceContainer>
-            <span>$125.00</span>
-            <span>50%</span>
+            <div>
+              <span>$125</span>
+              <span>50%</span>
+            </div>
             <span>$250.00</span>
           </PriceContainer>
           <CounterWrapper>
@@ -90,32 +88,7 @@ const ContentWrapper = styled.div`
   width: 100%;
 `;
 
-const ImgsWrapper = styled.div`
-  max-width: 445px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  row-gap: 32px;
-`;
-const MainIMg = styled.div`
-  img {
-    width: 100%;
-    height: 445px;
-    border-radius: 15px;
-  }
-`;
-const SelectImgContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  img {
-    max-width: 88px;
-    width: 100%;
-    max-height: 88px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-`;
+ 
 
 //TextWrapper
 const TextWrapper = styled.div`
@@ -143,29 +116,31 @@ const ProdactName = styled.span`
 `;
 const PriceContainer = styled.div`
   display: flex;
+  flex-direction: column;
   margin: 24px 0 0 0;
   max-width: 169px;
-  flex-wrap: wrap;
-  :first-child {
-    color: #1d2026;
-    font-size: 28px;
-    font-weight: 700;
-    margin: 0 16px 10px 0;
+  div {
+    :first-child {
+      color: #1d2026;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 16px 10px 0;
+    }
+    :nth-child(2) {
+      color: #ff7e1b;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 5px 7px;
+      border-radius: 6px;
+      background: #ffeee2;
+    }
   }
-  :nth-child(2) {
-    color: #ff7e1b;
+  :last-child {
+    color: rgb(182, 188, 200);
     font-size: 16px;
     font-weight: 700;
-    padding: 5px 7px;
-    border-radius: 6px;
-    background: #ffeee2;
-  }
-  :nth-child(3) {
-    color: #b6bcc8;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 26px; /* 162.5% */
-    text-decoration-line: strikethrough;
+    line-height: 2.6rem;
+    text-decoration-line: line-through;
   }
 `;
 const CounterWrapper = styled.div`

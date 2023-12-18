@@ -6,3 +6,4 @@ type selected = {
   id: number;
   img: string;
 };
+
