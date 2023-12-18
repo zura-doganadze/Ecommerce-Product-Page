@@ -18,25 +18,24 @@ const Collection: React.FC<CollectionProps> = ({
   decrement,
   increment,
 }) => {
-
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = () => {
     setIsPopupOpen(true);
-    console.log("o[en")
+    console.log("o[en");
   };
   const closePopup = () => {
     setIsPopupOpen(false);
-    console.log("close")
-
+    console.log("close");
   };
   return (
     <Wrapper>
       <ContentWrapper>
-        <ImgCard openPopup={openPopup}/>
-        {isPopupOpen && <Popup closePopup={closePopup}/>}
-        
-       
+        <ImgCardContainer>
+          <ImgCard openPopup={openPopup} />
+        </ImgCardContainer>
+        {isPopupOpen && <Popup closePopup={closePopup} />}
+
         <TextWrapper>
           <ProdactName>Sneaker Company</ProdactName>
           <h1>Fall Limited Edition Sneakers</h1>
@@ -87,9 +86,10 @@ const ContentWrapper = styled.div`
   max-width: 85%;
   width: 100%;
 `;
-
- 
-
+const ImgCardContainer = styled.div`
+  width: 100%;
+  max-width: 445px;
+`;
 //TextWrapper
 const TextWrapper = styled.div`
   max-width: 445px;

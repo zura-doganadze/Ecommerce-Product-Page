@@ -33,7 +33,6 @@ const ImgCard: React.FC<ImgCardProps> = ({ openPopup }) => {
 
 export default ImgCard;
 const ImgsWrapper = styled.div`
-  max-width: 445px;
   width: 100%;
   display: flex;
   flex-direction: column;
