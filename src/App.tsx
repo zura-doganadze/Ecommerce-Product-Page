@@ -15,11 +15,23 @@ function App() {
       setCount(count - 1);
     }
   };
+
+  const [AddedProduct, setAddedProduct] = useState(0);
+
+  const AddToCart = () => {
+    setAddedProduct(count);
+  };
+
   return (
     <Wrapper>
       <Container>
-        <Header count={count} />
-        <Collection increment={increment} decrement={decrement} count={count} />
+        <Header AddedProduct={AddedProduct} />
+        <Collection
+          increment={increment}
+          decrement={decrement}
+          count={count}
+          AddToCart={AddToCart}
+        />
       </Container>
     </Wrapper>
   );

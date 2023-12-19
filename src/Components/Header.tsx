@@ -4,11 +4,10 @@ import Bascket from "../assets/basket img.svg";
 import Person from "../assets/personal img.png";
 import Logo from "../assets/sneakers logo.svg";
 interface HeaderProps {
-  count: number;
+  AddedProduct: number | undefined;
 }
-const Header: React.FC<HeaderProps> = ({ count }) => {
+const Header: React.FC<HeaderProps> = ({ AddedProduct }) => {
   const data: string[] = ["Collections", "Men", "Women", "About", "Contact"];
-
   return (
     <Wrapper>
       <NavContainer>
@@ -22,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ count }) => {
       <IconsContainer>
         <BascketContainer>
           <img src={Bascket} alt="basket" />
-          <span>{count}</span>
+          <span>{AddedProduct}</span>
         </BascketContainer>
         <img src={Person} alt="person img" />
       </IconsContainer>

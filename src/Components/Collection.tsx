@@ -13,27 +13,25 @@ import Right from "../assets/right.svg";
 interface CollectionProps {
   decrement: () => void;
   increment: () => void;
-  isPopupOpen: boolean;
+  isPopupOpen?: boolean;
   count: number;
+  AddToCart: () => void;
 }
 const Collection: React.FC<CollectionProps> = ({
   count,
   decrement,
   increment,
+  AddToCart,
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectImg, setSelectImg] = useState<number>(1); // Assuming 1 is the initial image id
+  const [selectImg, setSelectImg] = useState<number>(1);
 
   const openPopup = () => {
     setIsPopupOpen(true);
-    console.log("open");
   };
-
   const closePopup = () => {
     setIsPopupOpen(false);
-    console.log("close");
   };
-
   function NextImg() {
     setSelectImg(selectImg < data.length ? selectImg + 1 : 1);
   }
@@ -49,8 +47,8 @@ const Collection: React.FC<CollectionProps> = ({
             openPopup={openPopup}
             selectImg={selectImg}
             setSelectImg={setSelectImg}
-            closePopup={closePopup} 
-            isPopupOpen={isPopupOpen} 
+            closePopup={closePopup}
+            isPopupOpen={isPopupOpen}
           />
         </ImgCardContainer>
 
@@ -64,8 +62,8 @@ const Collection: React.FC<CollectionProps> = ({
                 openPopup={openPopup}
                 selectImg={selectImg}
                 setSelectImg={setSelectImg}
-                closePopup={closePopup} 
-                isPopupOpen={isPopupOpen}   
+                closePopup={closePopup}
+                isPopupOpen={isPopupOpen}
               />
               <ScrolImgWrapper>
                 <img onClick={PrevImg} src={Left} alt="img" />
@@ -100,7 +98,7 @@ const Collection: React.FC<CollectionProps> = ({
               </button>
             </CounterContainer>
             <AddButton>
-              <button>
+              <button onClick={AddToCart}>
                 <img src={hape} alt="img" /> Add to cart
               </button>
             </AddButton>
@@ -138,7 +136,7 @@ const PopupWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(5px); 
+  backdrop-filter: blur(5px);
 `;
 
 const PopupContent = styled.div`
