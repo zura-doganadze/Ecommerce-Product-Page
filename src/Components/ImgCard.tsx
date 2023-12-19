@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import data from "../data.json";
 interface ImgCardProps {
   openPopup: () => void;
@@ -6,12 +6,14 @@ interface ImgCardProps {
   closePopup: () => void;
   setSelectImg: (newSelectImg: number) => void;
   isPopupOpen: boolean;
+  active: number | undefined;
 }
 
 const ImgCard: React.FC<ImgCardProps> = ({
   openPopup,
   selectImg,
   setSelectImg,
+  active,
 }) => {
   return (
     <ImgsWrapper>
@@ -19,16 +21,15 @@ const ImgCard: React.FC<ImgCardProps> = ({
         <img src={data.find((item) => item.id === selectImg)?.img} alt="img" />
       </MainIMg>
       <SelectImgContainer>
-        {data.map((item) => {
-          return (
-            <img
-              src={item.img}
-              key={item.id}
-              onClick={() => setSelectImg(item.id)}
-              alt="img"
-            />
-          );
-        })}
+        {data.map((item) => (
+          <SmalImgContainer
+            key={item.id}
+            src={item.img}
+            onClick={() => setSelectImg(item.id)}
+            alt="img"
+            isactive={item.id === (active ?? 1)} // Ensure active is initially set to 1
+          />
+        ))}
       </SelectImgContainer>
     </ImgsWrapper>
   );
@@ -48,6 +49,7 @@ const MainIMg = styled.div`
     height: 445px;
     border-radius: 15px;
   }
+  
 `;
 const SelectImgContainer = styled.div`
   display: flex;
@@ -61,3 +63,20 @@ const SelectImgContainer = styled.div`
     cursor: pointer;
   }
 `;
+type SmalImgContainerProps = {
+  isactive: any;
+  children?: React.ReactNode;
+};
+
+const SmalImgContainer = styled.img<SmalImgContainerProps>(
+  (props) => css`
+    border-radius: 10px;
+    border: 2px solid ${props.isactive ? "#FF7E1B" : "transparent"};
+
+    filter: ${props.isactive ? "blur(1.5px)" : "blur(0px)"};
+    &:hover {
+      border-color: #ff7e1b;
+      filter: blur(1px);
+    }
+  `
+);

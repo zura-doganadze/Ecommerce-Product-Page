@@ -23,7 +23,9 @@ const Header: React.FC<HeaderProps> = ({ AddedProduct }) => {
           <img src={Bascket} alt="basket" />
           <span>{AddedProduct}</span>
         </BascketContainer>
-        <img src={Person} alt="person img" />
+        <PersonImgContainer>
+          <img src={Person} alt="person img" />
+        </PersonImgContainer>
       </IconsContainer>
     </Wrapper>
   );
@@ -57,6 +59,13 @@ const IconsContainer = styled.div`
   column-gap: 34px;
   img {
     cursor: pointer;
+  }
+`;
+const PersonImgContainer = styled.div`
+  border: 3px solid transparent;
+  &:hover {
+    border: 3px solid #ff7e1b;
+    border-radius: 50%;
   }
 `;
 const BascketContainer = styled.div`

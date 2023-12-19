@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import data from "../data.json";
 // img
 import Minus from "../assets/minus.png";
@@ -25,7 +25,9 @@ const Collection: React.FC<CollectionProps> = ({
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectImg, setSelectImg] = useState<number>(1);
+  const [active, setActive] = useState<number>();
 
+  console.log(selectImg);
   const openPopup = () => {
     setIsPopupOpen(true);
   };
@@ -39,6 +41,9 @@ const Collection: React.FC<CollectionProps> = ({
   function PrevImg() {
     setSelectImg(selectImg > 1 ? selectImg - 1 : data.length);
   }
+  useEffect(() => {
+    setActive(selectImg);
+  }, [selectImg]);
   return (
     <Wrapper>
       <ContentWrapper>
@@ -49,6 +54,7 @@ const Collection: React.FC<CollectionProps> = ({
             setSelectImg={setSelectImg}
             closePopup={closePopup}
             isPopupOpen={isPopupOpen}
+            active={active}
           />
         </ImgCardContainer>
 
@@ -64,6 +70,7 @@ const Collection: React.FC<CollectionProps> = ({
                 setSelectImg={setSelectImg}
                 closePopup={closePopup}
                 isPopupOpen={isPopupOpen}
+                active={active}
               />
               <ScrolImgWrapper>
                 <img onClick={PrevImg} src={Left} alt="img" />
