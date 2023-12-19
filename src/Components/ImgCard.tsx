@@ -1,15 +1,18 @@
 import styled from "styled-components";
-import { useState } from "react";
 import data from "../data.json";
-
 interface ImgCardProps {
   openPopup: () => void;
+  selectImg: number;
+  closePopup: () => void;
+  setSelectImg: (newSelectImg: number) => void;
+  isPopupOpen: boolean;
 }
 
-
-const ImgCard: React.FC<ImgCardProps> = ({ openPopup }) => {
-  const [selectImg, setSelectImg] = useState<number | undefined>(1);
-
+const ImgCard: React.FC<ImgCardProps> = ({
+  openPopup,
+  selectImg,
+  setSelectImg,
+}) => {
   return (
     <ImgsWrapper>
       <MainIMg onClick={openPopup}>
@@ -37,6 +40,7 @@ const ImgsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 32px;
+  position: relative;
 `;
 const MainIMg = styled.div`
   img {

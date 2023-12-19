@@ -1,16 +1,19 @@
 import styled from "styled-components";
-// import data from "../data.json";
 import { useState } from "react";
-
+import data from "../data.json";
+// img
 import Minus from "../assets/minus.png";
 import Plus from "../assets/plus.svg";
 import hape from "../assets/Shape.svg";
+import X from "../assets/x.svg";
 import ImgCard from "./ImgCard";
-import Popup from "./Popup";
+import Left from "../assets/left.svg";
+import Right from "../assets/right.svg";
 
 interface CollectionProps {
   decrement: () => void;
   increment: () => void;
+  isPopupOpen: boolean;
   count: number;
 }
 const Collection: React.FC<CollectionProps> = ({
@@ -19,23 +22,58 @@ const Collection: React.FC<CollectionProps> = ({
   increment,
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectImg, setSelectImg] = useState<number>(1); // Assuming 1 is the initial image id
 
   const openPopup = () => {
     setIsPopupOpen(true);
-    console.log("o[en");
+    console.log("open");
   };
+
   const closePopup = () => {
     setIsPopupOpen(false);
     console.log("close");
   };
+
+  function NextImg() {
+    setSelectImg(selectImg < data.length ? selectImg + 1 : 1);
+  }
+
+  function PrevImg() {
+    setSelectImg(selectImg > 1 ? selectImg - 1 : data.length);
+  }
   return (
     <Wrapper>
       <ContentWrapper>
         <ImgCardContainer>
-          <ImgCard openPopup={openPopup} />
+          <ImgCard
+            openPopup={openPopup}
+            selectImg={selectImg}
+            setSelectImg={setSelectImg}
+            closePopup={closePopup} 
+            isPopupOpen={isPopupOpen} 
+          />
         </ImgCardContainer>
-        {isPopupOpen && <Popup closePopup={closePopup} />}
 
+        {isPopupOpen && (
+          <PopupWrapper>
+            <PopupContent>
+              <button onClick={closePopup}>
+                <img src={X} alt="img" />
+              </button>
+              <ImgCard
+                openPopup={openPopup}
+                selectImg={selectImg}
+                setSelectImg={setSelectImg}
+                closePopup={closePopup} 
+                isPopupOpen={isPopupOpen}   
+              />
+              <ScrolImgWrapper>
+                <img onClick={PrevImg} src={Left} alt="img" />
+                <img onClick={NextImg} src={Right} alt="img" />
+              </ScrolImgWrapper>
+            </PopupContent>
+          </PopupWrapper>
+        )}
         <TextWrapper>
           <ProdactName>Sneaker Company</ProdactName>
           <h1>Fall Limited Edition Sneakers</h1>
@@ -90,6 +128,46 @@ const ImgCardContainer = styled.div`
   width: 100%;
   max-width: 445px;
 `;
+const PopupWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px); 
+`;
+
+const PopupContent = styled.div`
+  padding: 20px;
+  max-width: 550px;
+  width: 100%;
+  position: relative;
+  img {
+    cursor: pointer;
+  }
+  button {
+    margin-bottom: 27px;
+    width: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    background: none;
+    border: none;
+  }
+`;
+const ScrolImgWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translate(-22px, -70px);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
 //TextWrapper
 const TextWrapper = styled.div`
   max-width: 445px;
