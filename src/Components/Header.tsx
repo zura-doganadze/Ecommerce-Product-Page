@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 //img
 import Bascket from "../assets/basket img.svg";
@@ -9,9 +10,15 @@ import DeleteImg from "../assets/delete img.svg";
 
 interface HeaderProps {
   AddedProduct: number | undefined;
+  DeleteAddedProduct: () => void;
 }
-const Header: React.FC<HeaderProps> = ({ AddedProduct }) => {
+const Header: React.FC<HeaderProps> = ({
+  AddedProduct,
+  DeleteAddedProduct,
+}) => {
   const data: string[] = ["Collections", "Men", "Women", "About", "Contact"];
+  const [activeCart, setActiveCart] = useState(false);
+
   return (
     <Wrapper>
       <NavContainer>
@@ -24,28 +31,48 @@ const Header: React.FC<HeaderProps> = ({ AddedProduct }) => {
       </NavContainer>
       <IconsContainer>
         <BascketContainer>
-          <img src={Bascket} alt="basket" />
+          <button
+            onClick={() => {
+              setActiveCart(!activeCart);
+            }}
+          >
+            <img src={Bascket} alt="basket" />
+          </button>
           <span>{AddedProduct}</span>
         </BascketContainer>
         <PersonImgContainer>
           <img src={Person} alt="person img" />
         </PersonImgContainer>
       </IconsContainer>
-      <CartWrapper>
-        <h6>Cart</h6>
-        <CartContentContainer>
-          <SneakersImg src={Sneakers} alt="sneakers img" />
-          <TotalCostWrapper>
-            <p>Fall Limited Edition Sneakers</p>
-            <TotalCostContainer>
-              <span>$125.00 x 3</span>
-              <span>$375.00</span>
-            </TotalCostContainer>
-          </TotalCostWrapper>
-          <DeleteImgs src={DeleteImg} alt="delete img" />
-        </CartContentContainer>
-        <button>Checkout</button>
-      </CartWrapper>
+      {activeCart && (
+        <CartWrapper>
+          <h6>Cart</h6>
+          {AddedProduct ? (
+            <CartContentWrapper>
+              <CartContentContainer>
+                <SneakersImg src={Sneakers} alt="sneakers img" />
+                <TotalCostWrapper>
+                  <p>Fall Limited Edition Sneakers</p>
+                  <TotalCostContainer>
+                    <span>$125.00 x {AddedProduct}</span>
+                    <span>${AddedProduct ? 125.0 * AddedProduct : 0}</span>
+                  </TotalCostContainer>
+                </TotalCostWrapper>
+                <DeleteImgs
+                  onClick={DeleteAddedProduct}
+                  src={DeleteImg}
+                  alt="delete img"
+                />
+              </CartContentContainer>
+              <button>Checkout</button>
+            </CartContentWrapper>
+          ) : (
+            <EmptyMessage>
+              <span>Your cart is empty.</span>
+            </EmptyMessage>
+          )}
+        </CartWrapper>
+      )}
     </Wrapper>
   );
 };
@@ -89,6 +116,13 @@ const PersonImgContainer = styled.div`
 `;
 const BascketContainer = styled.div`
   position: relative;
+  button {
+    border: none;
+    background: inherit;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
   span {
     position: absolute;
     bottom: 20px;
@@ -135,11 +169,18 @@ const CartWrapper = styled.div`
     padding: 19px 0;
     border: none;
     cursor: pointer;
+    &:hover {
+      background: #ffab6a;
+    }
   }
+`;
+const CartContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const CartContentContainer = styled.div`
   display: flex;
-  align-items: center;
   margin: 24px 0;
 `;
 const SneakersImg = styled.img`
@@ -169,4 +210,10 @@ const TotalCostContainer = styled.div`
 `;
 const DeleteImgs = styled.img`
   cursor: pointer;
+  &:hover {
+    transform: scale(1.5);
+  }
+`;
+const EmptyMessage = styled.div`
+  margin: 77px 0;
 `;

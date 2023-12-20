@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import data from "../data.json";
-
 interface ImgCardProps {
   openPopup: () => void;
   selectImg: number;
@@ -25,10 +24,10 @@ const ImgCard: React.FC<ImgCardProps> = ({
         {data.map((item) => (
           <SmalImgContainer
             key={item.id}
-            src={item.img}
+            $isactive={item.id === (active ?? 1)}
             onClick={() => setSelectImg(item.id)}
+            src={item.img}
             alt="img"
-            isactive={item.id === (active ?? 1)} // Ensure active is initially set to 1
           />
         ))}
       </SelectImgContainer>
@@ -50,7 +49,6 @@ const MainIMg = styled.div`
     height: 445px;
     border-radius: 15px;
   }
-  
 `;
 const SelectImgContainer = styled.div`
   display: flex;
@@ -65,16 +63,16 @@ const SelectImgContainer = styled.div`
   }
 `;
 type SmalImgContainerProps = {
-  isactive: any;
+  $isactive: any;
   children?: React.ReactNode;
 };
 
 const SmalImgContainer = styled.img<SmalImgContainerProps>(
   (props) => css`
     border-radius: 10px;
-    border: 2px solid ${props.isactive ? "#FF7E1B" : "transparent"};
+    border: 2px solid ${props.$isactive ? "#FF7E1B" : "transparent"};
+    filter: ${props.$isactive ? "blur(1.5px)" : "blur(0px)"};
 
-    filter: ${props.isactive ? "blur(1.5px)" : "blur(0px)"};
     &:hover {
       border-color: #ff7e1b;
       filter: blur(1px);

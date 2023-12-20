@@ -27,7 +27,6 @@ const Collection: React.FC<CollectionProps> = ({
   const [selectImg, setSelectImg] = useState<number>(1);
   const [active, setActive] = useState<number>();
 
-  console.log(selectImg);
   const openPopup = () => {
     setIsPopupOpen(true);
   };
@@ -44,6 +43,7 @@ const Collection: React.FC<CollectionProps> = ({
   useEffect(() => {
     setActive(selectImg);
   }, [selectImg]);
+
   return (
     <Wrapper>
       <ContentWrapper>
@@ -244,6 +244,10 @@ const CounterContainer = styled.div`
     border: none;
     background: inherit;
     cursor: pointer;
+    border: none;
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 `;
 const AddButton = styled.div`
@@ -259,5 +263,8 @@ const AddButton = styled.div`
     border-radius: 10px;
     border: none;
     cursor: pointer;
+    &:hover {
+      background: #ffab6a;
+    }
   }
 `;

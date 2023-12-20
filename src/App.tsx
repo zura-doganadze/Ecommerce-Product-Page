@@ -22,10 +22,18 @@ function App() {
     setAddedProduct(count);
   };
 
+  //delete add snackers
+  const DeleteAddedProduct = () => {
+    setCount(0);
+    setAddedProduct(0);
+  };
   return (
     <Wrapper>
       <Container>
-        <Header AddedProduct={AddedProduct} />
+        <Header
+          AddedProduct={AddedProduct}
+          DeleteAddedProduct={DeleteAddedProduct}
+        />
         <Collection
           increment={increment}
           decrement={decrement}
