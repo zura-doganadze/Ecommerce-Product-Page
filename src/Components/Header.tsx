@@ -33,16 +33,16 @@ const Header: React.FC<HeaderProps> = ({ AddedProduct }) => {
       </IconsContainer>
       <CartWrapper>
         <h6>Cart</h6>
-        <div>
-          <img src={Sneakers} alt="sneakers img" />
-          <CartContentContainer>
+        <CartContentContainer>
+          <SneakersImg src={Sneakers} alt="sneakers img" />
+          <TotalCostWrapper>
             <p>Fall Limited Edition Sneakers</p>
-            <div>
+            <TotalCostContainer>
               <span>$125.00 x 3</span>
               <span>$375.00</span>
-            </div>
-          </div>
-          <img src={DeleteImg} alt="delete img" />
+            </TotalCostContainer>
+          </TotalCostWrapper>
+          <DeleteImgs src={DeleteImg} alt="delete img" />
         </CartContentContainer>
         <button>Checkout</button>
       </CartWrapper>
@@ -112,14 +112,61 @@ const CartWrapper = styled.div`
   background: #fff;
   box-shadow: 0px 20px 50px -20px rgba(29, 32, 38, 0.5);
   padding: 24px;
+  position: absolute;
+  top: 117px;
+  right: 24px;
   h6 {
+    display: flex;
+    align-items: start;
     color: #1d2026;
     font-size: 16px;
     font-weight: 700;
     padding-bottom: 26px;
     border-bottom: 1px solid #e4e9f2;
   }
+  button {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    max-width: 312px;
+    width: 100%;
+    border-radius: 10px;
+    background: #ff7e1b;
+    padding: 19px 0;
+    border: none;
+    cursor: pointer;
+  }
 `;
 const CartContentContainer = styled.div`
-display:flex
-`
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+`;
+const SneakersImg = styled.img`
+  max-width: 50px;
+  width: 100%;
+  height: 50px;
+  border-radius: 4px;
+`;
+const TotalCostWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 16px;
+  white-space: nowrap;
+  width: 100%;
+  color: #69707d;
+  font-size: 16px;
+  line-height: 26px;
+`;
+
+const TotalCostContainer = styled.div`
+  display: flex;
+  column-gap: 12px;
+  :nth-child(2) {
+    color: #1d2026;
+    font-weight: 700;
+  }
+`;
+const DeleteImgs = styled.img`
+  cursor: pointer;
+`;
