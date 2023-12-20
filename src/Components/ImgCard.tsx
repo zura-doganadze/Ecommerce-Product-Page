@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import data from "../data.json";
+
 interface ImgCardProps {
   openPopup: () => void;
   selectImg: number;

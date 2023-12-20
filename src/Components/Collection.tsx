@@ -57,7 +57,6 @@ const Collection: React.FC<CollectionProps> = ({
             active={active}
           />
         </ImgCardContainer>
-
         {isPopupOpen && (
           <PopupWrapper>
             <PopupContent>
